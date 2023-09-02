@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Интерактивная карта
+{% endblock %}
+
+{% block content %}
+    <style>
+        .region {
+            fill: #7a7a8e;
+            stroke: white;
+            stroke-width: 1px;
+            cursor: pointer;
+        }
+
+        .region:hover {
+            fill: #2d344f;
+        }
+
+        #map-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #3d586c;
+        }
+
+        #map {
+            width: 80%;
+            height: 80%;
+        }
+
+        /* Стили для модального окна */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <h1>Федеральные округа России.</h1>
+    <h2>Сейчас ссылка павильно работает только для Сиб Фед округа</h2>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="region-name"></h2>
+            <a id="region-link" class="button" style="display: none;" href="#">Перейти в регион</a>
+        </div>
+    </div>
+
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+        // Загрузка данных из JSON файла
+        //todo Я без понятия как вот снизу правильно сделать путь до медиа, а после зайти в json
+        d3.json("../../media/map/with-districts.json").then(function (data) {
+            const width = window.innerWidth;  // Используйте ширину окна пользователя
+            const height = window.innerHeight;  // Используйте высоту окна пользователя;
+
+            // Создание контейнера SVG
+            var svg = d3.select("#map")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+            // Отображение регионов
+            svg.selectAll("path")
+                .data(data.regions)
+                .enter()
+                .append("path")
+                .attr("class", "region")
+                .attr("d", function (d) {
+                    return d.paths[0];
+                })
+                .on("click", function (event, d) {
+                    regionClickHandler(event, d);
+                });
+
+            // Обработчик клика на регион
+            function regionClickHandler(event, region) {
+                var regionName = region.name;
+
+                // Заполнение модального окна с именем региона
+                document.getElementById("region-name").innerHTML = regionName;
+
+                // Проверка, если регион - Сибирский федеральный округ, отобразить кнопку и установить ссылку
+                if (regionName === "Сибирский федеральный округ") {
+                    document.getElementById("region-link").style.display = "inline-block";
+                    document.getElementById("region-link").href = "/map/sib_fed_okrug/";
+                } else {
+                    document.getElementById("region-link").style.display = "none";
+                }
+
+                // Показ модального окна
+                document.getElementById("modal").style.display = "block";
+            }
+
+            // Закрытие модального окна при клике на крестик
+            document.getElementsByClassName("close")[0].onclick = function () {
+                document.getElementById("modal").style.display = "none";
+            };
+
+            // Закрытие модального окна при клике за его пределами
+            window.onclick = function (event) {
+                if (event.target == document.getElementById("modal")) {
+                    document.getElementById("modal").style.display = "none";
+                }
+            };
+
+
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block links %}
+    <link rel="stylesheet" href="{{ static("/map/leaflet.css") }}"/>
+    <script src='{{ static("/map/leaflet.js") }}'></script>
+    <style>
+        #map {
+            height: 80vh;
+        }
+    </style>
+{% endblock %}
+{% block title %}
+    Карта
+{% endblock %}
+{% block content %}
+    <div class="d-grid gap-2">
+        <div id="map"></div>
+        <div class="m-2">
+            <button class="btn btn-warning" id="resetBtn">Сбросить положение</button>
+            <form id="markerForm" class="w-100 d-flex gap-2 mt-2 h-50 align-items-center horiz">
+                {% for field in form %}
+                    <label class="w-auto">{{ field.label }}</label>
+                    {{ field }}
+                {% endfor %}
+                <button class="btn btn-warning" id="addMarker" type="button">Добавить точку</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src='{{ static("/map/Map.js") }}'></script>
+    <script src='{{ static("/map/PointController.js") }}'></script>
+{% endblock %}

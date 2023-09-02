@@ -1,0 +1,20 @@
+{% extends 'auth/register.html' %}
+{% block title %}
+    Логин
+{% endblock %}
+{% block btnName %}
+    Войти
+{% endblock %}
+{% block errors %}
+    {% if form.errors %}
+        <div class="text-danger ms-4">
+            {{ form.errors.__all__|striptags }}
+        </div>
+    {% endif %}
+{% endblock %}
+{% block secondBtnUrl %}
+    onclick="location.href='{{ url('register') }}'"
+{% endblock %}
+{% block secondBtnText %}
+    Нет аккаунта
+{% endblock %}

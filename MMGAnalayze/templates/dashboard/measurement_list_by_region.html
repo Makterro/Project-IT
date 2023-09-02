@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .custom-button {
+            background-color: #626262; /* Dark gray background */
+            border-color: #2c3e50; /* Dark gray border color */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Adding animation transitions */
+            color: #ffab3c !important;"
+        }
+
+        .custom-button:hover {
+            background-color: #2a2a2a; /* Darken the background color on hover */
+            transform: scale(1.05); /* Slightly increase the size on hover */
+        }
+
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+
+    <div class="container mt-5 center-content">
+        <h1 class="mb-4">Измерения региона №{{ region_number }}</h1>
+        <h2 class="mb-4">{{ region_name }}</h2>
+        <div class="row mb-4">
+            <div class="col-md-10 offset-md-1 center-content">
+                <a href="/dashboard/sensor/region/{{ region_number }}" class="btn btn-primary custom-button">Перейти к статичным сенсорам</a>
+                <a href="/dashboard/building/region/{{ region_number }}" class="btn btn-primary custom-button">Перейти к отслеживаемым обьектам</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Дата и время</th>
+                            <th>Описание</th>
+                            <th>Температура воздуха</th>
+                            <th>Температура поверхности</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sensor in measurement %}
+                            <tr>
+                                <td>{{ sensor.timestamp }}</td>
+                                <td>{{ sensor.description }}</td>
+                                <td>{{ sensor.air_temperature }}°C</td>
+                                <td>{{ sensor.surface_temperature }}°C</td>
+                                <td>
+                                    <a href="/dashboard/measurement/{{ sensor.id }}" class="btn btn-primary custom-button" >Перейти к измерениям</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

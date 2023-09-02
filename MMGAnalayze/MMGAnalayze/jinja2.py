@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from jinja2 import Environment
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import reverse

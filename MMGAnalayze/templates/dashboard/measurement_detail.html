@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .custom-button {
+            width: 100%;
+            background-color: #333333;
+            border-color: #2c3e50;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            color: #ffffff !important;
+        }
+
+        .custom-button:hover {
+            background-color: #494949;
+            transform: scale(1.05);
+        }
+
+        .left-align-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin: 30px;
+        }
+    </style>
+
+    <div class="table-container">
+        <div class="container mt-5">
+            <h2 class="mb-4">Детали измерения №{{ measurement.id }}</h2>
+            <div class="table-container">
+                <table class="table">
+                    <tbody>
+                    {% for field in measurement._meta.fields %}
+                        <tr>
+                            <th>{{ field.verbose_name }}</th>
+                            <td>{{ field.value_from_object(measurement) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                <a href="/dashboard/sensor/{{ measurement.sensor.id }}"
+                   class="btn btn-primary btn-block custom-button">Перейти к датчику
+                    "{{ measurement.sensor.model }}"</a><br>
+            </p>
+        </div>
+    </div>
+{% endblock %}

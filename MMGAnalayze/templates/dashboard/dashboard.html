@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block links %}
+    <style>
+        .region-link {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #333333;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .region-link2 {
+            display: block;
+            margin-left: 50px;
+            margin-right: 50px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .region-link:hover {
+            background-color: #2d344f;
+        }
+    </style>
+{% endblock %}
+{% block title %}
+    Приборная панель
+{% endblock %}
+{% block content %}
+    <div class="region-link2">
+        <div class="container mt-5">
+            <h1>Выберите пожалуйста регион России:</h1>
+            <div class="region-link2">
+                <h2>Для примера мы предлагаем перейти в Красноярский край</h2>
+                    <a href="building/region/27"
+                       class="region-link">№27 - Красноярский край</a>
+            </div>
+            <div class="region-link2">
+                {% for region in regions %}
+                    <a href="building/region/{{ region.1.properties.id }}"
+                       class="region-link">№{{ region.1.properties.id }}
+                        - {{ region.0 }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}

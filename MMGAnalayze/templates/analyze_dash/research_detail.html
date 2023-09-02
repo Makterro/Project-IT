@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .region-link2 {
+            display: block;
+            margin-left: 50px;
+            margin-right: 50px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .custom-button {
+            background-color: #333333;
+            border-color: #2c3e50;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            color: #ffffff !important;
+        }
+
+        .custom-button:hover {
+            background-color: #494949;
+            transform: scale(1.05);
+        }
+    </style>
+    <div class="region-link2">
+        <h1>Исследование: {{ research.building.name }} - {{ research.id }}</h1>
+        <div class="region-link2">
+            <p><strong>Комментарий:</strong> {{ research.comment }}</p>
+            <p><strong>Итог:</strong> {{ research.result }}</p>
+
+            <h2>Загруженные файлы:</h2>
+            <ul>
+                {% for file in files %}
+                    <li>
+                        <h5>{{ file.file.name }}</h5>
+                        <a href="/analyze/research/{{ research.id }}/download_file/{{ file.id }}/"
+                           class="btn btn-primary custom-button">Скачать</a>
+                        <a href="/analyze/research/{{ research.id }}/delete_file/{{ file.id }}/" class="btn btn-primary custom-button">Удалить</a>
+                    </li>
+                {% else %}
+                    <li>Нет загруженных файлов.</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Загрузить файл:</h2>
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                {{ form }}
+                <button type="submit">Загрузить</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

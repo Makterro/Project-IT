@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .custom-button {
+            width: 100%;
+            background-color: #333333;
+            border-color: #2c3e50;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            color: #ffffff !important;
+        }
+
+        .custom-button:hover {
+            background-color: #494949;
+            transform: scale(1.05);
+        }
+
+        .left-align-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="text"],
+        input[type="tel"],
+        select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+            font-size: 16px;
+            color: #555555;
+        }
+    </style>
+
+    <div class="container mt-5">
+        <div class="table-container">
+            <div class="left-align-content">
+                <h1 class="form-title">Создание исследования</h1>
+                <form method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+                    <div class="form-field">
+                        <label for="{{ form.comment.id_for_label }}" class="form-label">Комментарий:</label>
+                        <h3 class="full-width">{{ form.comment }}</h3>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="{{ form.result.id_for_label }}" class="form-label">Результат:</label>
+                        {{ form.result }}
+                    </div>
+                    <div class="form-field">
+                        {{ file_form }}
+            </div>
+            <div class="table-container">
+                <button class="btn btn-primary custom-button" type="submit">Создать</button>
+                <a href="/" style="margin-top: 10px" class="btn btn-primary custom-button">Назад</a>
+            </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

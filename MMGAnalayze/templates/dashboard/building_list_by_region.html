@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .list-group-item {
+            margin-bottom: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .list-group-item:hover {
+            background-color: #f8f8f8;
+        }
+
+        .custom-button {
+            background-color: #333333;
+            border-color: #2c3e50;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            color: #ffffff !important;
+        }
+
+        .custom-button:hover {
+            background-color: #5b5b5b;
+            transform: scale(1.05);
+        }
+
+        .region-link2 {
+            display: block;
+            margin-left: 50px;
+            margin-right: 50px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+    </style>
+    <div class="region-link2">
+        <div class="container mt-5">
+
+            <h1 style="justify-content: center; margin: auto; display: flex" class="mb-4">Отслеживаемые строения региона №{{ region_number }}</h1>
+            <div class="region-link2" >
+                <h2 style="justify-content: center; margin: auto; display: flex" class="mb-4">{{ region_name }}</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <ul class="list-group">
+                        <div class="region-link2">
+                            {% for building in buildings %}
+                                <li class="list-group-item">
+                                    <strong>Название строения:</strong> {{ building.name }}<br>
+                                    <strong>Ответсвенная компания:</strong> {{ building.company }}<br>
+                                    <h4 style="padding: 5px; background-color:
+                                            {% if building.status == 'green' %}green
+                                            {% elif building.status == 'yellow' %}yellow
+                                            {% elif building.status == 'red' %}red
+                                            {% endif %};">
+                                        Статус строения: {{ building.status }}
+                                    </h4>
+                                    <a href="/dashboard/building/{{ building.id }}"
+                                       class="btn btn-primary mt-3 custom-button">Перейти к
+                                        строению</a>
+                                </li>
+                            {% endfor %}
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

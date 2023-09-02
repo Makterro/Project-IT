@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .custom-button {
+            background-color: #333333;
+            border-color: #2c3e50;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            color: #ffffff !important;
+        }
+
+        .custom-button:hover {
+            background-color: #494949;
+            transform: scale(1.05);
+        }
+
+        .left-align-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <div class="container mt-5">
+        <div class="table-container">
+            <h1 class="mb-4">Обратная связь</h1>
+            <div class="table-container">
+                <h4><strong>Дорогие друзья!</strong> Мы с большим увлечением работали и хотим продолжать работать над
+                    этим
+                    проектом. Мы
+                    стремимся сделать
+                    его
+                    максимально полезным и удобным для вас. Ваше мнение очень важно для нас!</h4>
+            </div>
+            <div class="table-container">
+                <h5>Если вы нашли ошибку, хотите предложить улучшение или просто поделиться своим мнением о проекте,
+                    пожалуйста,
+                    напишите. <strong>Мы обязательно прочитаем каждое сообщение и примем ваши замечания во
+                        внимание.</strong></h5>
+            </div>
+            <div class="table-container">
+                <div style="display: flex; justify-content: center;">
+                    <img style="width: 80%; margin: auto;" src="/media/Command.png" alt="Изображение">
+                </div>
+            </div>
+            <div class="table-container">
+                <h5 class="mt-4">Вы можете найти нашего капитана <strong>Лобанова Михаила</strong> в <a
+                        class="btn btn-primary btn-block custom-button" href="https://t.me/id56468"
+                        target="_blank">Телеграм</a>.</h5>
+                <h5 class="mt-4">Вы можете найти нашего главного геолога <strong>Путинцеву Евгению</strong> в <a
+                        class="btn btn-primary btn-block custom-button" href="https://t.me/Jnth_n"
+                        target="_blank">Телеграм</a>.</h5>
+                <h5 class="mt-4">Вы можете найти нашего главного разработчика <strong>Корсакова Максима</strong> в <a
+                        class="btn btn-primary btn-block custom-button" href="https://vk.com/makterro"
+                        target="_blank">ВКонтакте</a> <a
+                        class="btn btn-primary btn-block custom-button" href="https://t.me/makterro"
+                        target="_blank">Телеграм</a>.</h5>
+                <h4><strong>Email:</strong> makkrs@mail.ru</h4>
+            </div>
+            <div class="table-container">
+                <h4 class="mt-4"><strong>Ждем ваших отзывов, пожеланий и предложений по проекту. Вместе мы сделаем его
+                    еще
+                    лучше!</strong></h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .table-container {
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .table-container1 {
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color: #bbbbbb;
+        }
+
+        .custom-button {
+            width: 100%;
+            background-color: #333333;
+            border-color: #2c3e50;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            color: #ffffff !important;
+            margin-top: 10px;
+        }
+
+        .custom-button:hover {
+            background-color: #494949;
+            transform: scale(1.05);
+        }
+
+
+    </style>
+
+
+    <div class="table-container">
+        <h1>Исследования по строению №{{ building.id }} "{{ building.name }}"</h1>
+        <div class="table-container">
+            <a href="/analyze/create_research/{{ building_id }}" class="btn btn-primary btn-block custom-button">Создать
+                исследование</a>
+            <ul>
+                {% for research in research_list %}
+                    <li>
+                        <div class="table-container1">
+                            <h2>Исследование №{{ research.id }}</h2>
+                            <h5>Дата создания: {{ research.date_create }}</h5>
+                            <h5>Дата последнего обновления: {{ research.date_update }}</h5>
+                            <h7>Комментарий: {{ research.comment }}</h7>
+                            <a class="btn btn-primary btn-block custom-button" href="/analyze/detail/{{ research.id }}">
+                                Перейти к исследованию </a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li>Нет доступных исследований.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
